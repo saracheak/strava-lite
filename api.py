@@ -4,7 +4,6 @@ from uuid import uuid4 as generateId
 user_store = {}
 workouts = {}
 
-#check with non-int age
 register_user_parser = (reqparse.RequestParser(bundle_errors=True)
                         .add_argument("name", type = str, required = True)
                         .add_argument("age", type = int, required = False))
@@ -84,23 +83,10 @@ class FollowFriend(Resource):
 
         return {"following" : list(following.get(user_id))}, 200
     
-# follow_friend_parser = (reqparse.RequestParser()
-#     .add_argument("user_id", type=str, required=True)
-#     .add_argument("follow_id", type=str, required=True))
 class ShowFriendWorkouts(Resource):
     def get(self, user_id, follow_id):
-        # user_id, follow_id = follow_friend_parser.parse_args().values()
         user = user_store.get(user_id)
         follow_id = user_store.get(follow_id)
-        # print("user_id =", user_id,"\n")
-        # print("follow_id", follow_id,"\n")
-        # print("following.get(user_id) =",following.get(user_id),"\n")
-        # print("type =",type(following.get(user_id)) ,"\n")
-        # print("[following.get(user_id)] =",[following.get(user_id)],"\n")
-        # print(following,"\n")
-        # print("follow_id.get('id')",follow_id.get("id"),"\n")
-        # temp = follow_id.get("id")
-        # print("ListWorkouts.get(self, temp) =", ListWorkouts.get(self, temp),"\n")
         if user is None:
             return {"message": "user not found in our user_store"}, 404
         if follow_id is None:
